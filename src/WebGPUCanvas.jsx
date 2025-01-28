@@ -16,7 +16,7 @@ export const WebGPUCanvas = ({ quality, children }) => {
       frameloop={frameloop}
       dpr={quality === "default" ? 1 : [1, 1.5]}
       camera={{
-        position: [5, 0, 0],
+        position: [0, 0, 20],
         near: 0.1,
         far: 50,
         fov: 65,
@@ -31,15 +31,17 @@ export const WebGPUCanvas = ({ quality, children }) => {
           alpha: false,
           stencil: false,
         });
-
+        
         // Initialize WebGPU and store renderer reference
         renderer.init().then(() => setFrameloop("always"));
         rendererRef.current = renderer;
         return renderer;
       }}
     >
+      <color attach="background" args={["black"]} />
       {children}
       <ResizeHandler quality={quality} rendererRef={rendererRef} />
+ 
     </Canvas>
   );
 }
